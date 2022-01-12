@@ -2,7 +2,7 @@
 not yet on [PyPi](https://pypi.org/algebra-math-py/0.0.1/)
 ##  Install with [TestPyPi](https://test.pypi.org/)
 ```
-pip install -i https://test.pypi.org/simple/ algebra-math-py==0.0.1
+pip install -i https://test.pypi.org/simple/ algebra-math-py==0.1.2
 ```
 ## How to use
 ### Importing

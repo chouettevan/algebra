@@ -38,7 +38,13 @@ class polynomio():
       _ = 0
       for i,char in enumerate(answer):
         if type(other) == term and char.compatible(other):
-          answer[i] += char
+          if other.coefficiente < 0:
+            # for some reason,when called inside of this method,the sum function supports negative numbers as if they were positive
+            answer[i] -= char
+          else:
+            answer[i] += char
+          if answer[i].coefficiente == 0:
+            del answer[i]  
           _ = 1
           break
       if _ == 0:

@@ -10,7 +10,7 @@ pip install -i https://test.pypi.org/simple/ algebra-math-py==0.1.2
 from algebra.component import term
 ```
 ### Initializing
-Note: to see the output shown in the comments you nedd to run `print()` or `str()` at the answer
+Note: to see the output shown in the comments you need to run `print()` or `str()` at the answer
 ```python
 term1 = term('2x')# 2x
 #exponent in terms

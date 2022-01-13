@@ -1,5 +1,3 @@
-import math
-import pdb
 exponents_table = {
   '⁴':4,
   '⁰':0,
@@ -31,18 +29,21 @@ class polynomio():
     return sum(self.variables)
   def __add__(self,other):
     if type(other) == polynomio:
-      self.variables.extend(other.variables)
-      return polynomio(self.variables).simplify()
+      answer = self.variables
+      answer.extend(other.variables)
+      return polynomio(answer).simplify()  
     else:
       answer = self.variables
       _ = 0
       for i,char in enumerate(answer):
         if type(other) == term and char.compatible(other):
-          if other.coefficiente < 0:
-            # for some reason,when called inside of this method,the sum function supports negative numbers as if they were positive
-            answer[i] -= char
-          else:
-            answer[i] += char
+          answer[i] = other + char
+          if answer[i].coefficiente == 0:
+            del answer[i]  
+          _ = 1
+          break
+        elif type(other) == int and type(char) == int:
+          answer[i] += other
           if answer[i].coefficiente == 0:
             del answer[i]  
           _ = 1
@@ -51,9 +52,10 @@ class polynomio():
         answer.append(other)    
       return polynomio(answer)
   def __sub__(self,other):
-    return self + -other  
+    second = -other
+    return self + second 
   def __neg__(self):
-    return self * -1
+    return self*-1  
   def __truediv__(self,other):
     return self * other**-1
   def __radd__(self,other):
@@ -79,7 +81,6 @@ class polynomio():
         var.append(other * i)
       return polynomio(var).simplify()
     else:
-      var = self
       answer = self*other[0]
       for i in other[1:]:
         answer += self*i
@@ -127,13 +128,11 @@ class term():
   def __add__(self,other):
     if other:
       if self.compatible(other):
-        print(self,other)
         s = ''.join([str(i) for i in self.variables])
         return term(f'{ self.coefficiente + other.coefficiente }{s}')
       else:
         return polynomio([self,other])
     else:
-      
       return self    
   def mulcomp(self,other):
     if [i.letra for i in self.variables] == [i.letra for i in other.variables]:
@@ -165,7 +164,7 @@ class term():
               varses.append(s)
         sa = ''.join([str(i) for i in varses])
         return term(f'{self.coefficiente*other.coefficiente}{sa}')
-      else:
+      elif type(other) == int:
         s = "".join([str(i) for i in self.variables])
         return term(f'{self.coefficiente*other}{s}')
     else:
@@ -234,6 +233,8 @@ class variable():
     if self.letra == o.letra:
       if self.exponente == o.exponente:
         return True
-    return False        
+    return False 
+
+
 
                 

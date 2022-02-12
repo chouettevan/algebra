@@ -16,8 +16,8 @@ class polynomio():
     self.v = []
     for i,char in enumerate(variables):
       if i != 0:
-        self.v.append(' + ')
-      self.v.append(char)
+        self.v.append(' + ')      
+      self.v.append(char)      
     self.variables = list(variables)
   def __str__(self):
     return ''.join([str(i) for i in self.v])
@@ -179,6 +179,11 @@ class term():
     s = ''.join([str(i) for i in self.variables])
     coff = self.coefficiente if self.coefficiente != 1 else ''
     return f'{coff}{s}'
+  def __abs__(self):
+    if self.coefficiente < 0 :
+      return -self
+    else:
+      return self  
   def __bool__(self):
     return bool(self.coefficiente)
   def __sub__(self,other):
@@ -234,7 +239,6 @@ class variable():
       if self.exponente == o.exponente:
         return True
     return False 
-
 
 
                 

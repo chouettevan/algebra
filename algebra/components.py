@@ -35,6 +35,13 @@ class polynomio():
   def simplify(self):
     return sum(self.variables)
   def __add__(self,other):
+    if type(other) in [int,float,Decimal]:
+      answer = self.variables
+      for i,t in enumerate(answer):
+        if type(t) in [int,float,Decimal]:
+          answer[i] += other 
+          break
+      return polynomio(answer)  
     if type(other) == polynomio:
       answer = self.variables
       answer.extend(other.variables)
@@ -263,6 +270,7 @@ class variable():
       if self.exponente == o.exponente:
         return True
     return False 
+
 
 
 

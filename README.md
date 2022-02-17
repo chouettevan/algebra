@@ -45,17 +45,17 @@ division
 div1  = term('4x')/2 # 2x
 div2 = term('4x')/term('2x')# 2
 div3 = term('4x2')/term('4x')# x
-div4 = term('4x')/term('4x2')# not supported yet
-div5 = term('4x2')/term('4x2')# not supported yet
+div4 = term('4x')/term('4x2')# xᐨ¹
+div5 = term('4x2')/term('4x2')# 1
 ```
 
 Exponentiation
 ---
 ```python
 exp1 = term('2x')**2 # supported
-exp2 = term('2x')**-1 #not supported
+exp2 = term('2x')**-1 # supported
 exp2 = term('2x')**term('2x')# not supported
-exp3 = term('2x')**2.5# not supported
+exp3 = term('2x')**2.5# supported
 ```
 polynoms
 ---

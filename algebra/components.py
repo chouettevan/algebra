@@ -1,14 +1,21 @@
+import decimal
+from fractions import Fraction
+from decimal import Decimal, DecimalTuple
+from multiprocessing import set_forkserver_preload
+from multiprocessing.connection import answer_challenge
 exponents_table = {
-  '⁴':4,
-  '⁰':0,
-  '¹':1,
-  '²':2,
-  '³':3,
-  '⁵':5,
-  '⁶':6,
-  '⁷':7,
-  '⁸':8,
-  '⁹':9,
+  '⁴':'4',
+  '⁰':'0',
+  '¹':'1',
+  '²':'2',
+  '³':'3',
+  '⁵':'5',
+  '⁶':'6',
+  '⁷':'7',
+  '⁸':'8',
+  '⁹':'9',
+  'ᐟ':'/',
+  'ᐨ':'-'
 }
 numbers_table = {value:key for key,value in exponents_table.items()}
 class polynomio():
@@ -90,7 +97,6 @@ class polynomio():
       
 class term():
   letterlist = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-  endedInit = False
   def __init__(self,txt):
     for i in txt:
       if i in self.letterlist:
@@ -98,7 +104,7 @@ class term():
         break
     index = txt.index(s)
     try:
-      self.coefficiente = int(txt[:index])
+      self.coefficiente = float(txt[:index])
     except ValueError:
       self.coefficiente = 1
     l = []
@@ -114,16 +120,15 @@ class term():
         if txt[a:b]:
           self.variables.append(variable(txt[a:b]))
       self.variables.append(variable(txt[b:]))     
-    self.variables.sort(key=lambda i:i.letra)  
-    self.endedInit = True 
+      self.variables.sort(key=lambda i:i.letra) 
+    if self.coefficiente == int(self.coefficiente):
+      self.coefficiente = int(self.coefficiente)  
+    self.variables = [var for var in self.variables if var.exponente != 0]  
   def compatible(self,other):
     if type(other) == term:
       if self.variables == other.variables:
         return True
     return False
-  def __setattr__(self,name,value):
-    if not self.endedInit:
-      self.__dict__[name] = value
 
   def __add__(self,other):
     if other:
@@ -170,8 +175,12 @@ class term():
     else:
       return 0   
   def __pow__(self,other):
+    if other == 0:
+      return 1
     answer = self
     answer.coefficiente = answer.coefficiente**other
+    if answer.coefficiente == int(answer.coefficiente):
+      answer.coefficiente = int(answer.coefficiente)
     for variable in answer.variables:
       variable.exponente *= other
     return answer  
@@ -191,6 +200,11 @@ class term():
   def __neg__(self):
     return self * -1
   def __truediv__(self,other):
+    if self.compatible(other):
+      answer = self.coefficiente/other.coefficiente
+      if answer == int(answer):
+        return int(answer)
+      return answer  
     return self * other**-1
   def __radd__(self,other):
     return self + other 
@@ -218,18 +232,28 @@ class variable():
       exp = ''
       for i in txt[1:]:
         try:
-          exp += str(exponents_table[i])
+          exp += exponents_table[i]
         except KeyError:
           pass
       try:
         self.exponente = int(exp) 
       except ValueError:
-        self.exponente = 1     
+        try:
+          self.exponente = Decimal(txt[1:])
+        except decimal.InvalidOperation:
+          self.exponente = 1 
   def __str__(self):
     exp = ''
+    if type(self.exponente) in [Decimal,float]:
+      exps = Decimal(str(self.exponente))
+      txt = str(Fraction(exps))
+      new_txt = ''
+      for i in txt:
+        new_txt += numbers_table[i]
+      return f'{self.letra}{new_txt}'  
     if self.exponente != 1:
       for i in str(self.exponente):
-        exp += numbers_table[int(i)] 
+        exp += numbers_table[i] 
     return f'{self.letra}{exp}' 
   def __mul__(self,other):
     if self.letra == other.letra:
@@ -239,6 +263,7 @@ class variable():
       if self.exponente == o.exponente:
         return True
     return False 
+
 
 
                 

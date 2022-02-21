@@ -68,12 +68,16 @@ pol4 = pol1 + pol2 #  4x + 3y - 2
 # multiplication
 pol5 = pol1 * pol2 #  supported
 # exponentiation
-pol6 = pol5**2 # supported
-pol7 = pol5**2.5 # not supported
-pol8 = pol6**pol5 # not supported
+pol6 = pol1**2 # supported
+pol7 = pol1**2.5 # not supported
+pol8 = pol1**pol2 # not supported
+
+div1  = pol1/2 # x + 1.5y
+div2 = pol1/term('2x')# 1 + 1.5xᐨ¹y
+div3 = pol1/pol2 # not supported
 ```
 polynoms support sum, substraction, multiplication and exponents as terms do.
-division is not supported
+
 
 have fun!
 

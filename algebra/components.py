@@ -27,7 +27,9 @@ class polynomio():
       self.v.append(char)      
     self.variables = list(variables)
   def __str__(self):
-    return ''.join([str(i) for i in self.v])
+    var = list(self.v)
+    var = list(map(lambda v:str(v) or '1',var))
+    return ''.join(var)
   def __iter__(self):
     return iter(self.variables)
   def __len__(self):
@@ -36,18 +38,22 @@ class polynomio():
     return sum(self.variables)
   def __add__(self,other):
     if type(other) in [int,float,Decimal]:
-      answer = self.variables
+      check = False
+      answer = list(self.variables)
       for i,t in enumerate(answer):
         if type(t) in [int,float,Decimal]:
           answer[i] += other 
+          check = True
           break
+      if not check:
+        answer.append(other)
       return polynomio(answer)  
     if type(other) == polynomio:
-      answer = self.variables
+      answer = list(self.variables)
       answer.extend(other.variables)
       return polynomio(answer).simplify()  
     else:
-      answer = self.variables
+      answer = list(self.variables)
       _ = 0
       for i,char in enumerate(answer):
         if type(other) == term and char.compatible(other):
@@ -92,7 +98,7 @@ class polynomio():
     if type(other) != polynomio:
       var = []
       for i in self:
-        var.append(other * i)
+        var.append(other * i) 
       return polynomio(var).simplify()
     else:
       answer = self*other[0]
@@ -176,7 +182,7 @@ class term():
               varses.append(s)
         sa = ''.join([str(i) for i in varses])
         return term(f'{self.coefficiente*other.coefficiente}{sa}')
-      elif type(other) == int:
+      elif type(other) in [int,float,Decimal]:
         s = "".join([str(i) for i in self.variables])
         return term(f'{self.coefficiente*other}{s}')
     else:
@@ -184,7 +190,7 @@ class term():
   def __pow__(self,other):
     if other == 0:
       return 1
-    answer = self
+    answer = term(str(self))
     answer.coefficiente = answer.coefficiente**other
     if answer.coefficiente == int(answer.coefficiente):
       answer.coefficiente = int(answer.coefficiente)
@@ -270,7 +276,11 @@ class variable():
       if self.exponente == o.exponente:
         return True
     return False 
-
+if __name__ == '__main__':
+  import unittest
+  from test.comp import Algebra_tests
+  Algebra_tests.term = term
+  unittest.main()
 
 
 

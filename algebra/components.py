@@ -36,6 +36,16 @@ class polynomio():
     return len(self.variables)
   def simplify(self):
     return sum(self.variables)
+  
+  def plot(self,**var):
+    answer = 0
+    for member in self:
+      if type(member) == term:
+        answer += member.plot(**var)
+      elif type(member) in [int,float,Decimal]:
+        answer += member 
+    return answer    
+    
   def __add__(self,other):
     if type(other) in [int,float,Decimal]:
       check = False
@@ -197,6 +207,15 @@ class term():
     for variable in answer.variables:
       variable.exponente *= other
     return answer  
+
+  def plot(self,**var):
+    answer = 1
+    for variable in self.variables:
+      answer *= variable.plot(**var)
+    answer *= self.coefficiente 
+    return answer 
+
+
   def __str__(self):
     s = ''.join([str(i) for i in self.variables])
     coff = self.coefficiente if self.coefficiente != 1 else ''
@@ -268,6 +287,14 @@ class variable():
       for i in str(self.exponente):
         exp += numbers_table[i] 
     return f'{self.letra}{exp}' 
+  def plot(self,**var):
+    if self.letra in var.keys():
+      return var[self.letra]**self.exponente
+    elif "univ" in var.keys():
+      return var["univ"]**self.exponente  
+    else:
+      return 1
+
   def __mul__(self,other):
     if self.letra == other.letra:
       return variable(f'{self.letra}{self.exponente + other.exponente}')

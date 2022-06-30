@@ -76,6 +76,15 @@ div1  = pol1/2 # x + 1.5y
 div2 = pol1/term('2x')# 1 + 1.5xᐨ¹y
 div3 = pol1/pol2 # not supported
 ```
+using as functions
+---
+```python
+term1 = term('2y')
+pol1 = term('2x') + term('3y')
+term1.plot(y=2) # 4
+pol1.plot(x=2,y=3)# 13
+pol1.plot(univ=5) # sets all variables to 5 ( = 25)
+```
 polynoms support sum, substraction, multiplication and exponents as terms do.
 
 

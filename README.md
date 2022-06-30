@@ -76,7 +76,7 @@ div1  = pol1/2 # x + 1.5y
 div2 = pol1/term('2x')# 1 + 1.5xᐨ¹y
 div3 = pol1/pol2 # not supported
 ```
-using as functions
+substituting numbers to the variables
 ---
 ```python
 term1 = term('2y')

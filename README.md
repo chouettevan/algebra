@@ -2,7 +2,7 @@
 
 ##  Install with [PyPi](https://pypi.org/)
 ```
-pip install VarPy
+pip install ColdPepper
 ```
 
 ## How to use

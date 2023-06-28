@@ -11,7 +11,7 @@ pip install algebra.py
 from algebra.components import term
 ```
 ### Initializing
-Note: to see the output shown in the comments you need to run `print()` or `str()` at the answer
+Note: to see the output shown in the comments you will need to run `print()` or `str()` at the answer
 
 Note:Do not use j as a variable.it is being used for complex number handling
 ```python

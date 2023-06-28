@@ -2,7 +2,7 @@
 
 ##  Install with [PyPi](https://pypi.org/)
 ```
-pip install algebraic
+pip install VarPy
 ```
 
 ## How to use

@@ -2,7 +2,7 @@
 
 ##  Install with [PyPi](https://pypi.org/)
 ```
-pip install algebra.py
+pip install algebraic
 ```
 
 ## How to use

@@ -2,7 +2,7 @@
 
 ##  Install with [PyPi](https://pypi.org/)
 ```
-pip install ColdPepper
+pip install algebra.py
 ```
 
 ## How to use

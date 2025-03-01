@@ -427,11 +427,6 @@ class variable():
       if self.exponente == o.exponente:
         return True
     return False 
-if __name__ == '__main__':
-  import unittest
-  from test.comp import Algebra_tests
-  Algebra_tests.term = term
-  unittest.main()
 
 
 

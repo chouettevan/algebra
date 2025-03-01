@@ -1,10 +1,10 @@
-name: Test package
+name: Publish Python 🐍 distributions 📦 to PyPI and TestPyPI
 
-on: [push , pull-request]
+on: push
 
 jobs:
-  test:
-    name: Test the package
+  build-n-publish:
+    name: Build and publish Python 🐍 distributions 📦 to PyPI and TestPyPI
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -12,7 +12,14 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: "3.x"
-    - name: run tests
-      - run: >-  for i in `find . -name '*-test.py' 2>/dev/null` ; do python3 $i ; done
-
-
+    - name: Install pypa/build
+      run: >-
+        python3 -m
+        pip install
+        build
+        --user
+    - name: Run the tests
+      run: >-
+        for i in `find . -name '*-test.py' 2>/dev/null` ; 
+        do python3 $i ;
+        done ;

@@ -166,8 +166,13 @@ class polynomio():
       for i in other[1:]:
         answer += self*i
       return answer.simplify()
-      
-      
+	@error_handler
+	def __mod__(self,other):
+		answer = []
+		for var in self.variables:
+				answer.append(var % other)
+		return polynomio(answer)
+  
       
 class term():
   letterlist = ['a','b','c','d','e','f','g','h','i','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
@@ -339,7 +344,13 @@ class term():
       return False     
     except:
       return False
-
+	@error_handler
+	def __mod__(self,other):
+		if type(other) != int:
+			raise TypeError()
+    s = ''.join([str(i) for i in self.variables])
+		return term(f'{self.coefficiente % other}{s}')
+		
 class variable():
   @error_handler
   def __init__(self,txt):
@@ -418,7 +429,7 @@ class variable():
 
 
   @error_handler
-  def __mul__(self,other):
+  def __mul__(sGelf,other):
     if self.letra == other.letra:
       return variable(f'{self.letra}{self.exponente + other.exponente}')
   @error_handler

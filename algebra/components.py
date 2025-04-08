@@ -91,7 +91,7 @@ class polynomio():
       answer = list(self.variables)
       _ = 0
       for i,char in enumerate(answer):
-        if type(other) == term and char.compatible(other):
+        if type(other) == term and other.compatible(char):
           answer[i] = other + char
           if answer[i].coefficiente == 0:
             del answer[i]  

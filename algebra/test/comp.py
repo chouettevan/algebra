@@ -61,11 +61,11 @@ class Algebra_tests(unittest.TestCase):
         self.assertEqual((t1+t2).degree(),2)
         self.assertEqual((t1**(2+1j)).degree(),2+1j)
 
-		def test_mod(self):
-				term = self.term
-				t1 = term('3x3')
-				self.assertEqual(t1 %	2,term('1x3'))
-				self.assertEqual((4*t1) % 5,term('2x3'))
+    def test_mod(self):
+        term = self.term
+        t1 = term('3x3')
+        self.assertEqual(t1 %	2,term('1x3'))
+        self.assertEqual((4*t1) % 5,term('2x3'))
         
 
         

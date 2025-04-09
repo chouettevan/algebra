@@ -15,7 +15,6 @@ class Algebra_tests(unittest.TestCase):
         self.assertEqual(str(pol1/term('2x')),'1 + 1.5xᐨ¹y')
         self.assertEqual(pol1/pol1,1)
 
-
     def test_comp(self):
         term = self.term
         pol1 = term('2x') + term('3y')
@@ -53,8 +52,6 @@ class Algebra_tests(unittest.TestCase):
         self.assertEqual(t1**2,t2)
 
 
-
-
     def test_degree(self):
         term = self.term
         t1 = term('2x')   
@@ -64,7 +61,11 @@ class Algebra_tests(unittest.TestCase):
         self.assertEqual((t1+t2).degree(),2)
         self.assertEqual((t1**(2+1j)).degree(),2+1j)
 
- 
+		def test_mod(self):
+				term = self.term
+				t1 = term('3x3')
+				self.assertEqual(t1 %	2,term('1x3'))
+				self.assertEqual((4*t1) % 5,term('2x3'))
         
 
         

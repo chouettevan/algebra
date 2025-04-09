@@ -166,12 +166,12 @@ class polynomio():
       for i in other[1:]:
         answer += self*i
       return answer.simplify()
-	@error_handler
-	def __mod__(self,other):
-		answer = []
-		for var in self.variables:
-				answer.append(var % other)
-		return polynomio(answer)
+  @error_handler
+  def __mod__(self,other):
+    answer = []
+    for var in self.variables:
+      answer.append(var % other)
+    return polynomio(answer)
   
       
 class term():
@@ -344,12 +344,12 @@ class term():
       return False     
     except:
       return False
-	@error_handler
-	def __mod__(self,other):
-		if type(other) != int:
-			raise TypeError()
+  @error_handler
+  def __mod__(self,other):
+    if type(other) != int:
+      raise TypeError()
     s = ''.join([str(i) for i in self.variables])
-		return term(f'{self.coefficiente % other}{s}')
+    return term(f'{self.coefficiente % other}{s}')
 		
 class variable():
   @error_handler
@@ -429,7 +429,7 @@ class variable():
 
 
   @error_handler
-  def __mul__(sGelf,other):
+  def __mul__(self,other):
     if self.letra == other.letra:
       return variable(f'{self.letra}{self.exponente + other.exponente}')
   @error_handler

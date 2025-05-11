@@ -72,6 +72,10 @@ class polynomio():
   
   @error_handler
   def __add__(self,other):
+    if not other:
+        return self
+    if not self:
+        return other
     if type(other) in [int,float,Decimal,complex]:
       check = False
       answer = list(self.variables)
